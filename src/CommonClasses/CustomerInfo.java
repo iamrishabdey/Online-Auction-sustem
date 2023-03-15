@@ -11,5 +11,5 @@ public class CustomerInfo implements Serializable{
 	public String name,address,dob,nickname,password;
 	public long mob;
 	public int ID;
-	public Vector<Item> myorders=new Vector<Item>();
+	public Vector<Item> myorders=null;
 }

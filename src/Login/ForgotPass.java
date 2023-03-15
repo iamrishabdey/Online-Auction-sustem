@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.SocketException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,23 +18,22 @@ import javax.swing.JTextPane;
 import javax.swing.Timer;
 
 import CommonClasses.*;
-import javax.swing.ImageIcon;
 
 public class ForgotPass extends JPanel {
-
+	
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Create the panel.
 	 */
-	public String name,pass1,pass2,nickname;
-	public AdminInfo admin;
 	public boolean n;
-	public JLabel lblNewLabel_1,lblNewPassword,lblConfirmPassword,lblPleaseEnterThe,lblPleaseEnterThe2,lblPleaseEnterThe3,lblPleaseEnterThe5,lblUsername,lblPleaseEnterThe4,lblPleaseFillValid,lblResetPassword;
+	public String name,pass1,pass2,nickname;
+	public CustomerInfo customer;
+	public JLabel lblNewLabel_1,lblNewPassword,lblConfirmPassword,lblPleaseEnterThe,lblPleaseEnterThe2,lblPleaseEnterThe3,lblUsername,lblPleaseEnterThe4,lblPleaseEnterThe5,lblPleaseFillValid,lblResetPassword;
 	public JTextPane textPane,textPane_3;
 	public JPasswordField textPane_1,textPane_2;
 	public JButton btnNewButton,button;
 	
-	public ForgotPass(AdminLogin parent,ObjectInputStream input,ObjectOutputStream output){
+	public ForgotPass(Login parent,ObjectInputStream input,ObjectOutputStream output){
 
 		setBackground(new Color(0, 250, 154));
 		setBounds(338, 171, 594, 535);
@@ -90,12 +90,6 @@ public class ForgotPass extends JPanel {
 		lblPleaseEnterThe3.setBounds(81, 424, 225, 15);
 		add(lblPleaseEnterThe3);
 		
-		lblPleaseEnterThe5 = new JLabel("Password not matched");
-		lblPleaseEnterThe5.setForeground(new Color(178, 34, 34));
-		lblPleaseEnterThe5.setVisible(false);
-		lblPleaseEnterThe5.setBounds(81, 425, 225, 15);
-		add(lblPleaseEnterThe5);
-		
 		lblUsername = new JLabel("User_name");
 		lblUsername.setForeground(new Color(0, 0, 139));
 		lblUsername.setBounds(81, 98, 123, 15);
@@ -113,6 +107,12 @@ public class ForgotPass extends JPanel {
 		lblPleaseEnterThe4.setVisible(false);
 		add(lblPleaseEnterThe4);
 		
+		lblPleaseEnterThe5 = new JLabel("Password not matched");
+		lblPleaseEnterThe5.setForeground(new Color(178, 34, 34));
+		lblPleaseEnterThe5.setVisible(false);
+		lblPleaseEnterThe5.setBounds(81, 425, 225, 15);
+		add(lblPleaseEnterThe5);
+		
 		lblPleaseFillValid = new JLabel("Please fill valid credentials");
 		lblPleaseFillValid.setForeground(new Color(178, 34, 34));
 		lblPleaseFillValid.setBounds(197, 440, 198, 15);
@@ -120,6 +120,7 @@ public class ForgotPass extends JPanel {
 		add(lblPleaseFillValid);
 		
 		btnNewButton = new JButton("CHANGE PASSWORD");
+		btnNewButton.setFocusable(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
@@ -151,7 +152,7 @@ public class ForgotPass extends JPanel {
 					{
 						public void actionPerformed(ActionEvent e)
 						{
-						   if(textPane.getText().isEmpty())
+							if(textPane.getText().isEmpty())
 								lblPleaseEnterThe.setVisible(false);
 						   if(textPane_1.getText().isEmpty())
 								lblPleaseEnterThe2.setVisible(false);
@@ -187,11 +188,11 @@ public class ForgotPass extends JPanel {
 				}
 				try 
 				{
-					admin=new AdminInfo();
-					admin.name=name;
-					admin.password=pass1;
-					admin.nickname=nickname;
-					output.writeObject(admin);
+					customer=new CustomerInfo();
+					customer.name=name;
+					customer.password=pass1;
+					customer.nickname=nickname;
+					output.writeObject(customer);
 					output.reset();
 					n=(boolean) input.readObject();
 				}
@@ -231,7 +232,6 @@ public class ForgotPass extends JPanel {
 		add(btnNewButton);
 		
 		lblResetPassword = new JLabel("RESET PASSWORD");
-		lblResetPassword.setBackground(new Color(0, 250, 154));
 		lblResetPassword.setForeground(new Color(0, 0, 139));
 		lblResetPassword.setBounds(187, 31, 208, 42);
 		lblResetPassword.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -245,7 +245,7 @@ public class ForgotPass extends JPanel {
 				setVisible(false);
 			}
 		});
-		button.setBackground(new Color(0, 128, 0));
+		button.setBackground(new Color(0, 100, 0));
 		button.setFocusable(false);
 		button.setIcon(new ImageIcon("/home/ashish/eclipse-workspace/ProjectImages2/back5.png"));
 		button.setBounds(12, 12, 50, 37);
